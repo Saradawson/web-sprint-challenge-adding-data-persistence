@@ -20,4 +20,11 @@ router.post('/', async (req, res, next) => {
     }
 })
 
+router.use((err, req, res, next) => { //eslint-disable-line
+    res.status(500).json({
+        message: 'something went wrong in resources router',
+        error: err.message
+    })
+})
+
 module.exports = router;
