@@ -1,5 +1,9 @@
 const db = require('../../data/dbConfig')
 
+const getAll = () => {
+    return db('projects')
+}
+
 const getById = (id) => {
     return db('projects').where('project_id', id).first()
 }
@@ -10,5 +14,7 @@ const create = (project) => {
 }
 
 module.exports = {
-    create
+    create,
+    getById,
+    getAll
 }
