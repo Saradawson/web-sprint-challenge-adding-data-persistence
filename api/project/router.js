@@ -5,7 +5,13 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
     try{
         const projects = await Project.getAll()
-        res.json(projects)
+        const mapProjects = projects.map(project => {
+            return {
+                ...project,
+                project_completed: project.project_completed ? true : false
+            }
+        })
+        res.json(mapProjects)
     }catch(err) {
         next(err)
     }
@@ -14,7 +20,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try{
         const project = await Project.create(req.body)
-        res.status(201).json(project)
+        res.status(201).json({...project, project_completed: project.project_completed ? true : false})
     }catch(err) {
         next(err)
     }
